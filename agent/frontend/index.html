@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PostCare Plus | PA Review Assistant</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark">PC+</span>
+      <span class="brand-title">PostCare Plus | PA Review Assistant</span>
+    </div>
+    <div class="topbar-right">
+      <span id="sessionIndicator" class="session-indicator">Reviewer session: —</span>
+      <span class="env-badge">INTERNAL — TEST ENVIRONMENT</span>
+      <button id="newSessionBtn" class="btn-secondary">New session</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="col col-queue">
+      <h2 class="col-title">Case Queue</h2>
+      <div class="filter-pills" id="filterPills">
+        <button class="pill active" data-status="">All</button>
+        <button class="pill" data-status="pending">Pending</button>
+        <button class="pill" data-status="approved">Approved</button>
+        <button class="pill" data-status="denied">Denied</button>
+      </div>
+      <div class="case-list" id="caseList"></div>
+    </aside>
+
+    <section class="col col-conversation">
+      <h2 class="col-title">Conversation</h2>
+      <div class="message-list" id="messageList"></div>
+      <div class="composer">
+        <textarea id="composerInput" placeholder="Ask about a case, or type a reference ID..." rows="2"></textarea>
+        <button id="sendBtn" class="btn-primary">Send</button>
+      </div>
+    </section>
+
+    <aside class="col col-casefile" id="caseFilePanel">
+      <h2 class="col-title">Case File</h2>
+      <div class="case-file-empty" id="caseFileEmpty">
+        No case selected. Choose one from the Case Queue, or ask the assistant to pull one up.
+      </div>
+      <div class="case-file-detail" id="caseFileDetail" hidden></div>
+    </aside>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>

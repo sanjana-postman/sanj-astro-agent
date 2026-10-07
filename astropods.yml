@@ -1,0 +1,48 @@
+# yaml-language-server: $schema=https://astropods.com/schema/package.json
+spec: blueprint/v1
+name: sanj-astro-agent
+
+agent:
+  build:
+    context: .
+    dockerfile: Dockerfile
+  interfaces:
+    frontend: true
+    messaging: true
+  inputs:
+    # Optional: when both FABRIC_BASE_URL and FABRIC_GATEWAY_KEY are set, the
+    # agent always and only uses the Fabric gateway, regardless of whether
+    # ANTHROPIC_API_KEY is also configured — see agent/model.ts.
+    - name: FABRIC_BASE_URL
+      datatype: string
+      optional: true
+      description: Anthropic-compatible gateway base URL
+    - name: FABRIC_GATEWAY_KEY
+      datatype: string
+      secret: true
+      optional: true
+      description: Gateway key, sent as the X-Gateway-Key header
+
+# Required: the agent's default model path. Only bypassed when the optional
+# Fabric inputs above are both set — see agent/model.ts.
+models:
+  anthropic:
+    provider: anthropic
+
+# The case-file store is a Postgres knowledge store, not a file baked into the
+# agent image — the production container filesystem is read-only, so anything
+# the process needs to WRITE to at runtime must live outside the container. A
+# `knowledge.db` entry with the built-in `postgres` provider gets the platform
+# to provision a persistent sidecar Postgres StatefulSet automatically on
+# deploy, and inject POSTGRES_HOST/PORT/USER/PASSWORD/DB into the agent
+# container as secrets — see agent/caseStore.ts. No manual DB setup, no
+# Dockerfile changes for it, and no separate provisioning step: adding this
+# block and redeploying is sufficient.
+knowledge:
+  db:
+    provider: postgres
+
+dev:
+  interfaces:
+    messaging:
+      adapters: [web]

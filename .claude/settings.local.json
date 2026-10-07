@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(export PATH=\"$HOME/.bun/bin:$PATH\")",
+      "Bash(bun build *)",
+      "Bash(ast spec *)",
+      "Bash(bunx tsc *)"
+    ]
+  }
+}
