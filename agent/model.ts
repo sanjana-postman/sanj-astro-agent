@@ -30,7 +30,7 @@ function createFabricGatewayModel(modelId: string = FABRIC_MODEL_ID): MastraMode
   const gatewayAnthropic = createAnthropic({
     baseURL: versionedBaseURL,
     apiKey: 'unused', // SDK requires a non-empty value; the gateway ignores it.
-    headers: { 'X-Gateway-Key': gatewayKey },
+    headers: { 'fg-api-key': gatewayKey },
   });
 
   // @ai-sdk/anthropic and @mastra/core each bundle their own copy of the AI
